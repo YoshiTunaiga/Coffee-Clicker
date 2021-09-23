@@ -117,7 +117,7 @@ describe('Slice 2: Unlocking & Rendering Producers', function() {
       };
     });
 
-    xit("changes `unlocked` to `true` when the player's coffee count is equal to or larger than half the initial price of the producer", function() {
+    it("changes `unlocked` to `true` when the player's coffee count is equal to or larger than half the initial price of the producer", function() {
       data.coffee = 100;
       code.unlockProducers(data.producers, data.coffee);
       expect(data.producers[0].unlocked).to.equal(true);
@@ -125,7 +125,7 @@ describe('Slice 2: Unlocking & Rendering Producers', function() {
       expect(data.producers[2].unlocked).to.equal(false);
     });
 
-    xit('does not set `unlocked` to `false` once a producer has been unlocked, even if the coffee count drops again', function() {
+    it('does not set `unlocked` to `false` once a producer has been unlocked, even if the coffee count drops again', function() {
       data.coffee = 100;
       code.unlockProducers(data.producers, data.coffee);
       data.coffee = 0;
@@ -149,7 +149,7 @@ describe('Slice 2: Unlocking & Rendering Producers', function() {
       };
     });
 
-    xit('returns an array of producer objects', function() {
+    it('returns an array of producer objects', function() {
       const results = code.getUnlockedProducers(data);
       expect(results).to.be.an('array');
       results.forEach(element => {
@@ -178,12 +178,12 @@ describe('Slice 2: Unlocking & Rendering Producers', function() {
   });
 
   describe('The makeDisplayNameFromId function', function() {
-    xit('returns a string', function() {
+    it('returns a string', function() {
       const result = code.makeDisplayNameFromId('input_string');
       expect(result).to.be.a('string');
     });
 
-    xit('transforms its input string from snake_case to Title Case', function() {
+    it('transforms its input string from snake_case to Title Case', function() {
       const testStrings = [
         'input_string',
         'mr._coffee',
@@ -207,12 +207,12 @@ describe('Slice 2: Unlocking & Rendering Producers', function() {
       qty: 5
     };
 
-    xit('returns a DOM element', function() {
+    it('returns a DOM element', function() {
       const result = code.makeProducerDiv(producer);
       expect(result).to.be.an('HTMLDivElement');
     });
 
-    xit('correctly fills in template string', function() {
+    it('correctly fills in template string', function() {
       // Here, we make a tiny fake DOM local to this test so we can append the element returned by makeProducerdiv to it. Then, we query this tiny DOM to make some assertions about it.
       const result = code.makeProducerDiv(producer);
       const doc = new JSDOM(`<!DOCTYPE html><body></body>`).window.document;

@@ -5,12 +5,17 @@
  **************/
 
 function updateCoffeeView(coffeeQty) {
-  document.querySelector("#coffee_counter").innerHTML = coffeeQty;
+  // document.querySelector("#coffee_counter").innerHTML = coffeeQty;
+  let counter = document.querySelector("#coffee_counter");
+  counter.innerText = coffeeQty
+  // updates the coffee counter to display the current coffee count
 }
 
 function clickCoffee(data) {
+  // increments the coffee count by one
   data.coffee = data.coffee + 1;
   updateCoffeeView(data.coffee);
+  // updates the coffee counter element with the incremented value
 }
 
 /**************

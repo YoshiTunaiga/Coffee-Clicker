@@ -5,11 +5,12 @@
  **************/
 
 function updateCoffeeView(coffeeQty) {
-  // your code here
+  document.querySelector("#coffee_counter").innerHTML = coffeeQty;
 }
 
 function clickCoffee(data) {
-  // your code here
+  data.coffee = data.coffee + 1;
+  updateCoffeeView(data.coffee);
 }
 
 /**************
@@ -17,11 +18,22 @@ function clickCoffee(data) {
  **************/
 
 function unlockProducers(producers, coffeeCount) {
+  /* - changes `unlocked` to `true` when the player's coffee count
+   is equal to or larger than half the initial price of the producer*/
+  // if (coffeeCount >= pro)
+  
+  // - does not set `unlocked` to `false` once a producer has been unlocked, even if the coffee count drops again
   // your code here
 }
 
 function getUnlockedProducers(data) {
-  // your code here
+ /* - returns an array of producer objects
+
+  - does not mutate the data */
+  let result = data.producers
+
+  // - filters out producer objects that are not unlocked
+  return result.filter(obj => obj[1].unlocked === false);
 }
 
 function makeDisplayNameFromId(id) {
@@ -107,6 +119,12 @@ if (typeof process === 'undefined') {
   // Get starting data from the window object
   // (This comes from data.js)
   const data = window.data;
+  // console.log(data);
+  // console.dir(Object.entries(data));
+  // let test = data.producers
+  // console.log(test.filter(obj => obj.unlocked === false));
+  // console.log(test.filter(obj => obj[1].unlocked === false));
+
 
   // Add an event listener to the giant coffee emoji
   const bigCoffee = document.getElementById('big_coffee');

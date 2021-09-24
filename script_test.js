@@ -89,15 +89,25 @@ describe('Slice 1: Clicking & Incrementing Coffee', function() {
   });
 });
 
-// You've made it through Slice 1 – great! If these two tests are passing, you should be able to open the page up in your browser (do `npm run start` and then visit http://localhost:8000) and see some functionality. At the bottom of `script.js`, you'll see some code that attaches your `clickCoffee` function to the coffee emoji you see on screen (this is just a div element). Now, when you click the emoji, you should see the counter update (because of the `updateCoffeeView` function).
+/* You've made it through Slice 1 – great! If these two tests are passing, 
+you should be able to open the page up in your browser (do `npm run start` and then visit http://localhost:8000) and
+some functionality. At the bottom of `script.js`, you'll see some code that attaches your `clickCoffee` function to
+ the coffee emoji you see on screen (this is just a div element). Now, when you click the emoji, you should see the 
+ counter update (because of the `updateCoffeeView` function). */
 
-// Try opening up your browser's console. On a Mac in Chrome, the shortcut is cmd + option + J. Here, you have access to all of the functions defined in the global scope.
+/* Try opening up your browser's console. On a Mac in Chrome, the shortcut is cmd + option + J. 
+Here, you have access to all of the functions defined in the global scope.*/
 
 // Try running `updateCoffeeView(5000)`. What do you see? Why?
 
-// Now try runnning `data`. You'll see the data object printed to the console, which looks something like: `{coffee: 0, totalCPS: 0, producers: Array(12)}`. You can click the arrow to expand this object.
+/* Now try runnning `data`. You'll see the data object printed to the console, 
+which looks something like: `{coffee: 0, totalCPS: 0, producers: Array(12)}`. 
+You can click the arrow to expand this object.*/
 
-// To debug, you can manually manipulate variables to see how the app responds. Try `data.coffee = 5000`, then try running `data` again. The data has changed, but what we see on screen hasn't changed. Why? Finally, try running `clickCoffee(data);`. Does what you see make sense?
+// To debug, you can manually manipulate variables to see how the app responds. 
+// Try `data.coffee = 5000`, then try running `data` again. 
+// The data has changed, but what we see on screen hasn't changed. Why? 
+// Finally, try running `clickCoffee(data);`. Does what you see make sense?
 
 /***************************
  *   SLICE 2 STARTS HERE
@@ -117,7 +127,7 @@ describe('Slice 2: Unlocking & Rendering Producers', function() {
       };
     });
 
-    it("changes `unlocked` to `true` when the player's coffee count is equal to or larger than half the initial price of the producer", function() {
+    xit("changes `unlocked` to `true` when the player's coffee count is equal to or larger than half the initial price of the producer", function() {
       data.coffee = 100;
       code.unlockProducers(data.producers, data.coffee);
       expect(data.producers[0].unlocked).to.equal(true);
@@ -125,7 +135,7 @@ describe('Slice 2: Unlocking & Rendering Producers', function() {
       expect(data.producers[2].unlocked).to.equal(false);
     });
 
-    it('does not set `unlocked` to `false` once a producer has been unlocked, even if the coffee count drops again', function() {
+    xit('does not set `unlocked` to `false` once a producer has been unlocked, even if the coffee count drops again', function() {
       data.coffee = 100;
       code.unlockProducers(data.producers, data.coffee);
       data.coffee = 0;
@@ -160,7 +170,7 @@ describe('Slice 2: Unlocking & Rendering Producers', function() {
       });
     });
 
-    xit('filters out producer objects that are not unlocked', function() {
+    it('filters out producer objects that are not unlocked', function() {
       let results = code.getUnlockedProducers(data);
       expect(results).to.have.lengthOf(1);
 
@@ -170,7 +180,7 @@ describe('Slice 2: Unlocking & Rendering Producers', function() {
       expect(results).to.have.lengthOf(2);
     });
 
-    xit('does not mutate the data', function() {
+    it('does not mutate the data', function() {
       const snapshot = JSON.stringify(data);
       code.getUnlockedProducers(data);
       expect(JSON.stringify(data)).to.equal(snapshot);
@@ -248,7 +258,7 @@ describe('Slice 2: Unlocking & Rendering Producers', function() {
       `).window.document;
     });
 
-    xit('calls the `.removeChild()` method on the DOM node passed in at least once', function() {
+    it('calls the `.removeChild()` method on the DOM node passed in at least once', function() {
       const spyOnRemoveChild = sinon.spy(doc.body, 'removeChild');
       code.deleteAllChildNodes(doc.body);
       expect(spyOnRemoveChild.called).to.be.equal(true);
@@ -256,14 +266,14 @@ describe('Slice 2: Unlocking & Rendering Producers', function() {
       spyOnRemoveChild.restore();
     });
 
-    xit('gets rid of all of the children of the DOM node passed in', function() {
+    it('gets rid of all of the children of the DOM node passed in', function() {
       code.deleteAllChildNodes(doc.body);
       expect(doc.body.childNodes.length).to.be.equal(0);
     });
   });
 
   // Inside renderProducers you should probably be calling *three* functions written previously.
-  describe('The renderProducers function', function() {
+  describe.only('The renderProducers function', function() {
     // Clear out our fake DOM.
     beforeEach('reset the fake DOM', function() {
       resetJSDOM();
@@ -283,7 +293,7 @@ describe('Slice 2: Unlocking & Rendering Producers', function() {
     });
 
     // We're giving you a big hint here...
-    xit('calls document.getElementById() or document.querySelector()', function() {
+    it('calls document.getElementById() or document.querySelector()', function() {
       const spyOnGetElementById = sinon.spy(document, 'getElementById');
       const spyOnQuerySelector = sinon.spy(document, 'querySelector');
       code.renderProducers(data);
@@ -295,7 +305,7 @@ describe('Slice 2: Unlocking & Rendering Producers', function() {
     });
 
     // Big hint: Don't just render blank divs; we've written the makeProducerDiv function for you, which should be called here.
-    xit('appends some producer div elements to the producer container', function() {
+    it('appends some producer div elements to the producer container', function() {
       code.renderProducers(data);
       const producerContainer = document.getElementById('producer_container');
       // Did you generate the right number of child nodes?

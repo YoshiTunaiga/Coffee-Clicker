@@ -25,24 +25,33 @@ function clickCoffee(data) {
 function unlockProducers(producers, coffeeCount) {
   /* - changes `unlocked` to `true` when the player's coffee count
    is equal to or larger than half the initial price of the producer*/
-  // if (coffeeCount >= pro)
-  
+  producers.forEach(obj => {
+    if (coffeeCount === obj.price || coffeeCount > (obj.price / 2)) {
+      obj.unlocked = true;
+      console.log(`something was changed!!`);
+    }
+    return obj;
+  });
   // - does not set `unlocked` to `false` once a producer has been unlocked, even if the coffee count drops again
   // your code here
+  
 }
 
 function getUnlockedProducers(data) {
  /* - returns an array of producer objects
 
   - does not mutate the data */
-  let result = data.producers
-
+  const results = data.producers;
   // - filters out producer objects that are not unlocked
-  return result.filter(obj => obj[1].unlocked === false);
+  return results.filter(obj => obj.unlocked === true);
 }
 
+
+
 function makeDisplayNameFromId(id) {
-  // your code here
+  return id.split('_').map(elem => {
+    return elem.slice(0,1).toUpperCase() + elem.slice(1);
+  }).join(' ');
 }
 
 // You shouldn't need to edit this function-- its tests should pass once you've written makeDisplayNameFromId
@@ -67,11 +76,13 @@ function makeProducerDiv(producer) {
 }
 
 function deleteAllChildNodes(parent) {
-  // your code here
+  while(parent.firstChild) parent.removeChild(parent.firstChild)
 }
 
 function renderProducers(data) {
-  // your code here
+  const contain = document.getElementById('producer_container');
+  console.log(contain);
+  // contain.append(makeProducerDiv(data.producers))
 }
 
 /**************
@@ -123,12 +134,14 @@ function tick(data) {
 if (typeof process === 'undefined') {
   // Get starting data from the window object
   // (This comes from data.js)
-  const data = window.data;
+  // const data = window.data;
   // console.log(data);
-  // console.dir(Object.entries(data));
+  // // console.dir(Object.entries(data));
   // let test = data.producers
   // console.log(test.filter(obj => obj.unlocked === false));
-  // console.log(test.filter(obj => obj[1].unlocked === false));
+  // .filter(obj => obj['price'] === 10)
+ 
+  // console.log(test.filter(obj => obj[1]['unlocked'] === false));
 
 
   // Add an event listener to the giant coffee emoji

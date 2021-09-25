@@ -4,6 +4,12 @@
  *   SLICE 1
  **************/
 
+// I have taken this extra Step just to see if I can make it fun :)
+let arrayMsgs = ['Mmmmm....Delicious!! Keep them coming', 'I NEED COFFEE NOW!!', 'All I need is coffee, OKurrrr!!', 'I need coffee right MEOW!!!!', 'Coffee tastes like hopes and dreams', "JAIL is real if I don't get my Coffee!", "Caffeine Perks me UP!", "Other people talk to me in the morning you know", "-----______-----", "They say you only need one cup, aha...."], msg = document.getElementById("msg");
+const random = () => Math.floor(Math.random() * arrayMsgs.length);
+
+
+
 function updateCoffeeView(coffeeQty) {
   // document.querySelector("#coffee_counter").innerHTML = coffeeQty;
   let counter = document.querySelector("#coffee_counter");
@@ -17,6 +23,7 @@ function clickCoffee(data) {
   updateCoffeeView(data.coffee);
   renderProducers(data)
   // updates the coffee counter element with the incremented value
+
 }
 
 /**************
@@ -103,7 +110,7 @@ function renderProducers(data) {
   
   const datas = data.producers;
 
-  producingProd = unlockProducers(datas, data.coffee)
+  unlockProducers(datas, data.coffee)
 
   let result = getUnlockedProducers(data);
 
@@ -186,6 +193,7 @@ function updateCPSView(cps) {
 
   // Changes the text on the element to the parameter passed in.
   cpsElem.innerText = cps;
+
   return cps;
 
   //------PSEUDO CODING!!------
@@ -312,16 +320,19 @@ if (typeof process === 'undefined') {
   // Add an event listener to the giant coffee emoji
   const bigCoffee = document.getElementById('big_coffee');
   bigCoffee.addEventListener('click', () => clickCoffee(data));
-
   // Add an event listener to the container that holds all of the producers
   // Pass in the browser event and our data object to the event listener
   const producerContainer = document.getElementById('producer_container');
   producerContainer.addEventListener('click', event => {
     buyButtonClick(event, data);
+    msg.innerHTML = arrayMsgs[random()];
+ 
   });
 
   // Call the tick function passing in the data object once per second
-  setInterval(() => tick(data), 1000);
+  setInterval(() => {
+    tick(data);
+  }, 1000);
 }
 // Meanwhile, if we aren't in a browser and are instead in node
 // we'll need to exports the code written here so we can import and

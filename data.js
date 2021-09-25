@@ -86,5 +86,8 @@ window.data = {
       cps: 2000,
       qty: 0
     }
-  ]
+  ],
+  random() {
+    Math.floor(Math.random() * arrayMsgs.length);
+  }
 };

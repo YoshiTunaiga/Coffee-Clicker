@@ -127,7 +127,7 @@ describe('Slice 2: Unlocking & Rendering Producers', function() {
       };
     });
 
-    xit("changes `unlocked` to `true` when the player's coffee count is equal to or larger than half the initial price of the producer", function() {
+    it("changes `unlocked` to `true` when the player's coffee count is equal to or larger than half the initial price of the producer", function() {
       data.coffee = 100;
       code.unlockProducers(data.producers, data.coffee);
       expect(data.producers[0].unlocked).to.equal(true);
@@ -135,7 +135,7 @@ describe('Slice 2: Unlocking & Rendering Producers', function() {
       expect(data.producers[2].unlocked).to.equal(false);
     });
 
-    xit('does not set `unlocked` to `false` once a producer has been unlocked, even if the coffee count drops again', function() {
+    it('does not set `unlocked` to `false` once a producer has been unlocked, even if the coffee count drops again', function() {
       data.coffee = 100;
       code.unlockProducers(data.producers, data.coffee);
       data.coffee = 0;
@@ -273,7 +273,7 @@ describe('Slice 2: Unlocking & Rendering Producers', function() {
   });
 
   // Inside renderProducers you should probably be calling *three* functions written previously.
-  describe.only('The renderProducers function', function() {
+  describe('The renderProducers function', function() {
     // Clear out our fake DOM.
     beforeEach('reset the fake DOM', function() {
       resetJSDOM();
@@ -316,21 +316,21 @@ describe('Slice 2: Unlocking & Rendering Producers', function() {
     });
 
     // Hint: Call the function written to do this!
-    xit('unlocks any locked producers that need to be unlocked', function() {
+    it('unlocks any locked producers that need to be unlocked', function() {
       code.renderProducers(data);
       expect(data.producers[0].unlocked).to.be.equal(true);
       expect(data.producers[1].unlocked).to.be.equal(true);
       expect(data.producers[2].unlocked).to.be.equal(false);
     });
 
-    xit('only appends unlocked producers', function() {
+    it('only appends unlocked producers', function() {
       code.renderProducers(data);
       const producerContainer = document.getElementById('producer_container');
       expect(producerContainer.childNodes.length).to.be.equal(2);
       expect(producerContainer.childNodes[0].childNodes).to.have.length(5);
     });
 
-    xit("deletes the producer container's children before appending new producers", function() {
+    it("deletes the producer container's children before appending new producers", function() {
       const producerContainer = document.getElementById('producer_container');
       const fakeProducer = document.createElement('div');
       producerContainer.appendChild(fakeProducer);
@@ -339,7 +339,7 @@ describe('Slice 2: Unlocking & Rendering Producers', function() {
       expect(producerContainer.childNodes[0].childNodes).to.have.length(5);
     });
 
-    xit('is not in some way hardcoded to pass the tests', function() {
+    it('is not in some way hardcoded to pass the tests', function() {
       data.producers.push({ id: 'producer_D', price: 1, unlocked: true });
       const producerContainer = document.getElementById('producer_container');
       code.renderProducers(data);
@@ -350,13 +350,20 @@ describe('Slice 2: Unlocking & Rendering Producers', function() {
     });
   });
 
-  // This far into Slice 2, you've defined a function that renders the producers to the screen, with the help of some other functions. What producers are rendered depends, of course, on how much coffee the player has accumulated.
+  // This far into Slice 2, you've defined a function that renders the producers to the screen, 
+  // with the help of some other functions. What producers are rendered depends, of course, 
+  // on how much coffee the player has accumulated.
 
-  // While it might be passing the tests, nothing in our code yet calls the renderProducers function. How can we test it in the browser?
+  // While it might be passing the tests, nothing in our code yet calls the renderProducers function. 
+  // How can we test it in the browser?
 
-  // Try running `renderProducers(data)` in the browser console. This might show you some producers, depending on how much coffee you have. You can click a bunch more times and run the function again to test it out, or you can just set `data.coffee` to a big number before running `renderProducers(data)`. Try that to see if the function works!
+  // Try running `renderProducers(data)` in the browser console. This might show you some producers, 
+  // depending on how much coffee you have. You can click a bunch more times and run the function 
+  // again to test it out, or you can just set `data.coffee` to a big number before running `renderProducers(data)`. 
+  // Try that to see if the function works!
 
-  // How is our code actually going to run this function? That's what the next test, the last one in Slice 2, addresses; we'll go back to a function you wrote in Slice 1 and modify it, slightly.
+  // How is our code actually going to run this function? That's what the next test, the last one in Slice 2,
+  //  addresses; we'll go back to a function you wrote in Slice 1 and modify it, slightly.
   describe('The clickCoffee function', function() {
     // Clear out our fake DOM.
     beforeEach('reset the fake DOM', function() {
@@ -377,7 +384,7 @@ describe('Slice 2: Unlocking & Rendering Producers', function() {
       };
     });
 
-    xit('updates the DOM to reflect any newly unlocked producers', function() {
+    it('updates the DOM to reflect any newly unlocked producers', function() {
       code.clickCoffee(data);
       const producerContainer = document.getElementById('producer_container');
       expect(producerContainer.childNodes.length).to.be.equal(2);

@@ -15,6 +15,7 @@ function clickCoffee(data) {
   // increments the coffee count by one
   data.coffee = data.coffee + 1;
   updateCoffeeView(data.coffee);
+  renderProducers(data)
   // updates the coffee counter element with the incremented value
 }
 
@@ -23,18 +24,21 @@ function clickCoffee(data) {
  **************/
 
 function unlockProducers(producers, coffeeCount) {
+  // console.log(coffeeCount);
   /* - changes `unlocked` to `true` when the player's coffee count
    is equal to or larger than half the initial price of the producer*/
-  producers.forEach(obj => {
-    if (coffeeCount === obj.price || coffeeCount > (obj.price / 2)) {
-      obj.unlocked = true;
-      console.log(`something was changed!!`);
+   for (let i = 0; i < producers.length; i++) {
+     let obj = producers[i];
+    //  console.log(obj.price);
+     if (obj.price === coffeeCount || (coffeeCount * 2) >= obj.price) {
+       obj.unlocked = true;
+      //  console.log(`something was changed!!`);
     }
-    return obj;
-  });
+   }
   // - does not set `unlocked` to `false` once a producer has been unlocked, even if the coffee count drops again
   // your code here
-  
+  // console.log(producers);
+  return producers;
 }
 
 function getUnlockedProducers(data) {
@@ -81,8 +85,31 @@ function deleteAllChildNodes(parent) {
 
 function renderProducers(data) {
   const contain = document.getElementById('producer_container');
-  console.log(contain);
-  // contain.append(makeProducerDiv(data.producers))
+  // console.log(data);
+  const datas = data.producers;
+
+  // console.log(producingProd[0]);
+  producingProd = unlockProducers(datas, data.coffee)
+  // console.log(producingProd);
+
+  let result = getUnlockedProducers(data);
+  // const someProducerDiv = makeProducerDiv(producingProd[0])
+  // console.log(someProducerDiv);
+// console.log(result);
+
+  if (contain.childNodes.length) deleteAllChildNodes(contain);
+  for (let i = 0; i < result.length; i++) {
+    let theDivChild = makeProducerDiv(result[i]);
+    // console.log(theDivChild);
+    contain.appendChild(theDivChild);
+  }
+  /*
+    - appends some producer div elements to the producer container
+    - unlocks any locked producers that need to be unlocked
+    - only appends unlocked producers
+    - deletes the producer container's children before appending new producers
+    - is not in some way hardcoded to pass the tests
+  */
 }
 
 /**************

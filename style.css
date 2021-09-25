@@ -3,6 +3,7 @@
 }
 body {
   margin: 0px;
+  background-color: rgb(171, 197, 171);
 }
 .column-container {
   display: flex;
@@ -35,7 +36,7 @@ body {
 .column-header {
   font-size: 25px;
   position: relative;
-  background-color: white;
+  background-color: rgb(171, 197, 171);
   top: 8px;
 }
 #big_coffee {
@@ -81,4 +82,9 @@ body {
 .producer button {
   font-size: 15px;
   width: 50px;
+  border: 2px solid rgb(151, 60, 60);
+  border-radius: 5px;
+  border-style: outset;
+  background-color: rgb(112, 20, 20);
+  color: white;
 }

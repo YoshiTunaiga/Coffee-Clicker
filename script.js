@@ -5,7 +5,7 @@
  **************/
 
 // I have taken this extra Step just to see if I can make it fun :)
-let arrayMsgs = ['Mmmmm....Delicious!! Keep them coming', 'I NEED COFFEE NOW!!', 'All I need is coffee, OKurrrr!!', 'I need coffee right MEOW!!!!', 'Coffee tastes like hopes and dreams', "JAIL is real if I don't get my Coffee!", "Caffeine Perks me UP!", "Other people talk to me in the morning you know", "-----______-----", "They say you only need one cup, aha...."], msg = document.getElementById("msg");
+let arrayMsgs = ['Mmmmm....Delicious!! Keep them coming', 'I NEED COFFEE NOW!!', 'All I need is coffee, OKurrrr!!', 'I need coffee right MEOW!!!!', 'Coffee tastes like hopes and dreams', "JAIL is real if I don't get my Coffee!", "Caffeine Perks me UP!", "Other people talk to me in the morning you know", "---__---", "They say you only need one cup, aha...."], msg = document.getElementById("msg");
 const random = () => Math.floor(Math.random() * arrayMsgs.length);
 
 

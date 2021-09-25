@@ -24,17 +24,22 @@ function clickCoffee(data) {
  **************/
 
 function unlockProducers(producers, coffeeCount) {
-  // console.log(coffeeCount);
+ 
   /* - changes `unlocked` to `true` when the player's coffee count
    is equal to or larger than half the initial price of the producer*/
    for (let i = 0; i < producers.length; i++) {
+     // this will get each object...
      let obj = producers[i];
-    //  console.log(obj.price);
-     if (obj.price === coffeeCount || (coffeeCount * 2) >= obj.price) {
+
+     if (obj.price === coffeeCount || coffeeCount >= (obj.price / 2)) {
        obj.unlocked = true;
+
       //  console.log(`something was changed!!`);
     }
    }
+     //------PSEUDO CODING!!------
+      // console.log(coffeeCount);
+      //  console.log(obj.price);
   // - does not set `unlocked` to `false` once a producer has been unlocked, even if the coffee count drops again
   // your code here
   // console.log(producers);
@@ -43,9 +48,9 @@ function unlockProducers(producers, coffeeCount) {
 
 function getUnlockedProducers(data) {
  /* - returns an array of producer objects
-
   - does not mutate the data */
   const results = data.producers;
+
   // - filters out producer objects that are not unlocked
   return results.filter(obj => obj.unlocked === true);
 }
@@ -53,6 +58,13 @@ function getUnlockedProducers(data) {
 
 
 function makeDisplayNameFromId(id) {
+    //------PSEUDO CODING!!------
+  // Split the id to then map thru the array
+  // get each element in the array
+  //get the first letter and upperCase it
+  //then connect it back to the element and hey come and join the others
+  //I need to return you
+
   return id.split('_').map(elem => {
     return elem.slice(0,1).toUpperCase() + elem.slice(1);
   }).join(' ');
@@ -80,22 +92,20 @@ function makeProducerDiv(producer) {
 }
 
 function deleteAllChildNodes(parent) {
+    //------PSEUDO CODING!!------
+  // While there is a child on this parent, remove the child 
+  //Sorry child, but you have to go hehe
   while(parent.firstChild) parent.removeChild(parent.firstChild)
 }
 
 function renderProducers(data) {
   const contain = document.getElementById('producer_container');
-  // console.log(data);
+  
   const datas = data.producers;
 
-  // console.log(producingProd[0]);
   producingProd = unlockProducers(datas, data.coffee)
-  // console.log(producingProd);
 
   let result = getUnlockedProducers(data);
-  // const someProducerDiv = makeProducerDiv(producingProd[0])
-  // console.log(someProducerDiv);
-// console.log(result);
 
   if (contain.childNodes.length) deleteAllChildNodes(contain);
   for (let i = 0; i < result.length; i++) {
@@ -103,6 +113,13 @@ function renderProducers(data) {
     // console.log(theDivChild);
     contain.appendChild(theDivChild);
   }
+    //------PSEUDO CODING!!------
+    // console.log(data);
+      // console.log(producingProd[0]);
+        // console.log(producingProd);
+      // const someProducerDiv = makeProducerDiv(producingProd[0])
+  // console.log(someProducerDiv);
+// console.log(result);
   /*
     - appends some producer div elements to the producer container
     - unlocks any locked producers that need to be unlocked
@@ -117,31 +134,152 @@ function renderProducers(data) {
  **************/
 
 function getProducerById(data, producerId) {
-  // your code here
+
+  let producer = data.producers
+  for (let i = 0; i < producer.length; i++) {
+    let elem = producer[i];
+
+    if (elem.id === producerId) {
+      return elem;
+    }
+  }
+
+  //------PSEUDO CODING!!------
+  // console.log(elem);
+  // console.log(data);
+  // console.log(producerId);
+  // console.log(producer);
+  // [ 0, 1, 2]
+  // [{ id: 'producer_C', price: 500 }, { id: 'producer_B', price: 200 },{ id: 'producer_A', price: 50 }]
 }
 
 function canAffordProducer(data, producerId) {
-  // your code here
+
+  //get the producers list
+  let producer = data.producers
+
+  //check thru the list of producers
+  for (let i = 0; i < producer.length; i++) {
+    // Get each producer for verification
+    let elem = producer[i];
+
+    // Can this player afford to buy coffee from this producer?
+    //Match the producerId with the one in data and check
+    //If also this producerId can be bought with the coffee 
+    //available on data
+    // console.log(data.producers[i].price);
+    return (elem.id === producerId && data.coffee >= data.producers[i].price)
+
+    //------PSEUDO CODING!!------
+    // console.log(elem);
+      // console.log(data);
+  // console.log(producerId);
+  }
+  
+  console.log(data.producers[0]);
 }
+
 
 function updateCPSView(cps) {
-  // your code here
+  //Gets the element in HTML by Id;
+  const cpsElem = document.getElementById('cps');
+
+  // Changes the text on the element to the parameter passed in.
+  cpsElem.innerText = cps;
+  return cps;
+
+  //------PSEUDO CODING!!------
+  // console.log('Number of inner Text: ', Number(cpsElem.innerHTML));
+  // console.log('Sum:... ', sum);
+  // console.log('the selector: ...', cpsElem.innerHTML);
+    // let sum = Number(cpsElem.innerHTML) + cps;
+  // sum = String(sum)
+
 }
 
+
 function updatePrice(oldPrice) {
-  // your code here
+  //125% === 1.25 ||| 501 * 125 = 626.25
+  //Math.floor will return an integer rounded down
+  return Math.floor(oldPrice * 1.25);
+
+  // console.log(oldPrice);
 }
 
 function attemptToBuyProducer(data, producerId) {
-  // your code here
+  // console.log(data.totalCPS);
+  let bool = canAffordProducer(data, producerId);
+  let producer = getProducerById(data, producerId);
+    //get inside the data.producer
+  
+  if (bool) {
+    // increments the quantity of the producer in question only if the player can afford it;
+    producer.qty++; 
+
+    //decrements the player's coffee by the *current* price of the producer, but only if the player can afford it;
+    data.coffee = data.coffee - producer.price;
+
+    //updates the price of the producer to 125% of the previous price;
+    producer.price = updatePrice(producer.price);
+
+    //updates the total CPS, but only if the player can afford the producer;
+    data.totalCPS += producer.cps;
+    updateCPSView(data.totalCPS);
+  }
+  //then return what the boolean was;
+  return bool;
+
+  //------PSEUDO CODING!!------
+  // console.log('Producer Price: ', producer.price);
+  // console.log(updateCPSView(data.totalCPS));
+  // console.log('Producer CPS: ', producer.cps);
+  // console.log(producer);
+  // console.log(bool);
+
 }
 
 function buyButtonClick(event, data) {
-  // your code here
+  const targetButton = event.target;
+  // debugger;
+  // Checks if the button was click and nothing else;
+  if (targetButton.tagName !== 'BUTTON') return;
+  
+  let id = targetButton.id.slice(4); //This is the ids: producer_A
+  // let targetId = `buy_${id}`;
+  let affordableOrNot = attemptToBuyProducer(data, id); //This is the Boolean: true
+
+  if (affordableOrNot) {
+    // console.log('Almost there');
+    renderProducers(data);
+    updateCoffeeView(data.coffee)
+
+  } else {
+    window.alert('Not enough coffee!');
+  }
+  // console.log(targetButton.id);
+
+
+   //------PSEUDO CODING!!------
+  // console.log('This is the data: ', data);
+  // console.log('This is the event: ', event);
+  // console.log('Target: ...', targetButton); // Target: ... { tagName: 'BUTTON', id: 'buy_producer_A' }
+  // console.log('This is the id:....', id);
+  // console.log('This is the Boolean: ', result);
+  // window.alert('Not enough coffee!');
 }
 
 function tick(data) {
-  // your code here
+  // console.log(data);
+  // initialize some fake data;
+  data.coffee += data.totalCPS;
+
+  //updates the DOM to reflect this new coffee count;
+  updateCoffeeView(data.coffee);
+
+  //updates the DOM to reflect any newly unlocked producers;
+  // tick(data);
+  renderProducers(data);
+
 }
 
 /*************************

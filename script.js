@@ -8,6 +8,10 @@
 let arrayMsgs = ['Mmmmm....Delicious!! Keep them coming', 'I NEED COFFEE NOW!!', 'All I need is coffee, OKurrrr!!', 'I need coffee right MEOW!!!!', 'Coffee tastes like hopes and dreams', "JAIL is real if I don't get my Coffee!", "Caffeine Perks me UP!", "Other people talk to me in the morning you know", "---__---", "They say you only need one cup, aha...."], msg = document.getElementById("msg");
 const random = () => Math.floor(Math.random() * arrayMsgs.length);
 
+/* Extra Credit Completed: 
+- Edit style.css to change the application's color scheme to something more appropriate to a coffee-themed game.
+- Figure out how to deploy your completed application to the public internet using Github Pages: https://yoshitunaiga.github.io/
+*/
 
 
 function updateCoffeeView(coffeeQty) {
@@ -59,6 +63,7 @@ function getUnlockedProducers(data) {
   const results = data.producers;
 
   // - filters out producer objects that are not unlocked
+  // console.log(results.filter(obj => obj.unlocked === true));
   return results.filter(obj => obj.unlocked === true);
 }
 
@@ -109,7 +114,7 @@ function renderProducers(data) {
   const contain = document.getElementById('producer_container');
   
   const datas = data.producers;
-
+ 
   unlockProducers(datas, data.coffee)
 
   let result = getUnlockedProducers(data);
@@ -175,8 +180,9 @@ function canAffordProducer(data, producerId) {
     //If also this producerId can be bought with the coffee 
     //available on data
     // console.log(data.producers[i].price);
-    return (elem.id === producerId && data.coffee >= data.producers[i].price)
-
+    if (elem.id === producerId) {
+      return (data.coffee >= data.producers[i].price)
+    }
     //------PSEUDO CODING!!------
     // console.log(elem);
       // console.log(data);

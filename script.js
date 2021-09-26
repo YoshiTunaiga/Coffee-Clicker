@@ -181,7 +181,7 @@ function canAffordProducer(data, producerId) {
     //available on data
     // console.log(data.producers[i].price);
     if (elem.id === producerId) {
-      return (data.coffee >= data.producers[i].price)
+      return (data.coffee >= data.producers[i].price);
     }
     //------PSEUDO CODING!!------
     // console.log(elem);

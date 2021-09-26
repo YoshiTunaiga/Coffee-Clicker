@@ -63,6 +63,7 @@ function getUnlockedProducers(data) {
   const results = data.producers;
 
   // - filters out producer objects that are not unlocked
+  // console.log(results.filter(obj => obj.unlocked === true));
   return results.filter(obj => obj.unlocked === true);
 }
 
@@ -113,7 +114,7 @@ function renderProducers(data) {
   const contain = document.getElementById('producer_container');
   
   const datas = data.producers;
-
+ 
   unlockProducers(datas, data.coffee)
 
   let result = getUnlockedProducers(data);
@@ -179,8 +180,9 @@ function canAffordProducer(data, producerId) {
     //If also this producerId can be bought with the coffee 
     //available on data
     // console.log(data.producers[i].price);
-    return (elem.id === producerId && data.coffee >= data.producers[i].price)
-
+    if (elem.id === producerId) {
+      return (data.coffee >= data.producers[i].price)
+    }
     //------PSEUDO CODING!!------
     // console.log(elem);
       // console.log(data);
